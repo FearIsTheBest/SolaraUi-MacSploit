@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Monaco Editor in WKWebView</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' }});
+        require(['vs/editor/editor.main'], function() {
+            monaco.editor.defineTheme('myCustomTheme', {
+                base: 'vs-dark', // You can use 'vs-dark' or 'hc-black'
+                inherit: true,
+                rules: [],
+                colors: {
+                    'editor.background': '#09000e', // Background color
+                    'editor.foreground': '#ffffff'  // Text color for visibility
+                }
+            });
+
+            var editor = monaco.editor.create(document.getElementById('container'), {
+                value: '-- Welcome to Molara!',
+                language: 'lua',
+                theme: 'myCustomTheme' // Apply the custom theme
+            });
+
+            // Function to get the content of the editor
+            window.getEditorContent = function() {
+                return editor.getValue();
+            };
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background-color: rgb(9, 0, 14); /* Background color of the body */
+        }
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
